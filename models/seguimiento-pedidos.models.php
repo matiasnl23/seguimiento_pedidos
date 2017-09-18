@@ -68,7 +68,6 @@ class Pedidos {
       (
         pedidosCliente,
         pedidosContacto,
-        pedidosMailContacto,
         pedidosCategoria,
         pedidosUsuario,
         pedidosNro,
@@ -79,7 +78,6 @@ class Pedidos {
       ) VALUES (
         :clienteID,
         :contactoID,
-        :contactoMail,
         :categoriaID,
         :usuarioID,
         :bas,
@@ -90,7 +88,6 @@ class Pedidos {
       )");
     $q->bindParam(':clienteID',$data['clienteID'],PDO::PARAM_INT);
     $q->bindParam(':contactoID',$data['contactoID'],PDO::PARAM_INT);
-    $q->bindParam(':contactoMail',$data['contactoMail'],PDO::PARAM_STR);
     $q->bindParam(':categoriaID',$data['categoriaID'],PDO::PARAM_INT);
     $q->bindParam(':usuarioID',$data['usuarioID'],PDO::PARAM_INT);
     $q->bindParam(':bas',$data['bas'],PDO::PARAM_STR);
