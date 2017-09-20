@@ -6,9 +6,13 @@ class BAS {
   protected $link;
   protected $bas;
 
-  public function __construct() {
-    $db = new SQL;
-    $this->link = $db->conectar();
+  public function __construct($link = null) {
+    if(!$link) {
+      $db = new SQL;
+      $this->link = $db->conectar();
+    } else {
+      $this->link = $link;
+    }
   }
   public function disponible($area) {
     $q = $this->link->prepare("SELECT
@@ -37,7 +41,7 @@ class BAS {
   }
   public function incrementar() {
     if($this->bas) {
-      if($this->bas['incremental']) {
+      if($this->bas['incremental']!==null) {
         $basTrabajo = $this->bas;
         ++$basTrabajo['incremental'];
         $q = $this->link->prepare('UPDATE tblTags SET
@@ -54,7 +58,7 @@ class BAS {
           return ['status' => 2, 'message' => $q->errorInfo()];
         }
       } else {
-        return ['status' => 2, 'message' => 'No se ha encontrado sobre qué tag realizar el incremento.'];
+        return ['status' => 2, 'message' => ['No se ha encontrado sobre qué tag realizar el incremento.', $this->bas]];
       }
     } else {
       return ['status' => 2, 'message' => 'Antes de realizar esta acción se debe consultar cúal es el tag disponible.'];
@@ -78,7 +82,7 @@ class BAS {
 
 }
 
-$bas = new BAS;
+// $bas = new BAS;
 // echo json_encode($bas->disponible('CA'));
-echo json_encode($bas->incrementar());
+// echo json_encode($bas->incrementar());
 ?>

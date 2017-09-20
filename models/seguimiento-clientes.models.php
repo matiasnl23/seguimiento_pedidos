@@ -7,9 +7,13 @@ require_once('conexion.models.php');
 class Clientes {
   protected $link;
 
-  public function __construct() {
-    $db = new SQL;
-    $this->link = $db->conectar();
+  public function __construct($link = null) {
+    if(!$link) {
+      $db = new SQL;
+      $this->link = $db->conectar();
+    } else {
+      $this->link = $link;
+    }
   }
   public function listar() {
     /*
@@ -85,7 +89,7 @@ class Clientes {
       if($q->rowCount()>0) {
         return [ 'status' => 0, 'data' => $q->fetch(PDO::FETCH_ASSOC)];
       } else {
-        return [ 'status' => 1, 'data' => 'El cliente no existe.' ];
+        return [ 'status' => 1, 'message' => 'El cliente no existe.' ];
       }
     } else {
       return [ 'status' => 2, 'message' => $q->errorInfo() ];
@@ -100,14 +104,14 @@ class Clientes {
   }
 }
 
-$datos = [
-  'clienteID' => 160,
-  'nombre' => 'Coorporación benito',
-  'domicilio' => 'Evergreen 123',
-  'alias' => null
-];
+// $datos = [
+//   'clienteID' => 160,
+//   'nombre' => 'Coorporación benito',
+//   'domicilio' => 'Evergreen 123',
+//   'alias' => null
+// ];
 
-$cliente = new Clientes;
+// $cliente = new Clientes;
 // $cliente->verJson();
 // echo json_encode($cliente->obtener(57));
 // echo json_encode($cliente->editar($datos));

@@ -11,9 +11,13 @@ require_once('conexion.models.php');
 class Contactos {
   protected $link;
 
-  public function __construct() {
-    $db = new SQL;
-    $this->link = $db->conectar();
+  public function __construct($link = null) {
+    if(!$link) {
+      $db = new SQL;
+      $this->link = $db->conectar();
+    } else {
+      $this->link = $link;
+    }
   }
   public function listar() {
     /*
@@ -125,17 +129,17 @@ class Contactos {
   }
 }
 
-$datos = [
-  'contactoID' => 96,
-  'clienteID' => 224,
-  'nombre' => 'Josecito Pérez',
-  'mail' => 'josecito@mail.com',
-  'numeroCelular' => '15-3728-9921',
-  'numeroFijo' => '(011)2920-0092',
-  'numeroInterno' => 2901,
-];
+// $datos = [
+//   'contactoID' => 96,
+//   'clienteID' => 224,
+//   'nombre' => 'Josecito Pérez',
+//   'mail' => 'josecito@mail.com',
+//   'numeroCelular' => '15-3728-9921',
+//   'numeroFijo' => '(011)2920-0092',
+//   'numeroInterno' => 2901,
+// ];
 
-$contacto = new Contactos;
+// $contacto = new Contactos;
 // $contacto->verJson();
 // echo json_encode($contacto->obtener(87));
 // echo json_encode($contacto->editar($datos));
